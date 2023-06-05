@@ -71,6 +71,22 @@ export class AppComponent implements OnInit {
       }
     );
   }
+  public searchUsers(key: string): void {
+    console.log(key);
+    const results: User[] = [];
+    for (const user of this.users) {
+      if (user.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || user.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || user.phoneNumber.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || user.address.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results.push(user);
+      }
+    }
+    this.users = results;
+    if (results.length === 0 || !key) {
+      this.getAllUser();
+    }
+  }
   
   public onOpenModal(user: User | null, mode: string): void {
     const container = document.getElementById('main-container');
